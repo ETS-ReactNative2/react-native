@@ -48,7 +48,7 @@ const API = {
   ): void {
     invariant(NativeAnimatedModule, 'Native animated module is not available');
     API.queueOperation(() => {
-      NativeAnimatedModule.getValue(tag, saveValueCallback);
+    NativeAnimatedModule?.getValue &&  NativeAnimatedModule.getValue(tag, saveValueCallback);
     });
   },
   setWaitingForIdentifier: function(id: string): void {
@@ -67,14 +67,14 @@ const API = {
     invariant(NativeAnimatedModule, 'Native animated module is not available');
 
     if (Platform.OS === 'android') {
-      NativeAnimatedModule.startOperationBatch();
+     NativeAnimatedModule?.startOperationBatch &&  NativeAnimatedModule.startOperationBatch();
     }
     for (let q = 0, l = queue.length; q < l; q++) {
       queue[q]();
     }
     queue.length = 0;
     if (Platform.OS === 'android') {
-      NativeAnimatedModule.finishOperationBatch();
+      NativeAnimatedModule?.finishOperationBatch &&  NativeAnimatedModule.finishOperationBatch();
     }
   },
   queueOperation: (fn: () => void): void => {
@@ -87,31 +87,31 @@ const API = {
   createAnimatedNode: function(tag: number, config: AnimatedNodeConfig): void {
     invariant(NativeAnimatedModule, 'Native animated module is not available');
     API.queueOperation(() =>
-      NativeAnimatedModule.createAnimatedNode(tag, config),
+    NativeAnimatedModule?.createAnimatedNode &&    NativeAnimatedModule.createAnimatedNode(tag, config),
     );
   },
   startListeningToAnimatedNodeValue: function(tag: number) {
     invariant(NativeAnimatedModule, 'Native animated module is not available');
     API.queueOperation(() =>
-      NativeAnimatedModule.startListeningToAnimatedNodeValue(tag),
+     NativeAnimatedModule?.startListeningToAnimatedNodeValue &&  NativeAnimatedModule.startListeningToAnimatedNodeValue(tag),
     );
   },
   stopListeningToAnimatedNodeValue: function(tag: number) {
     invariant(NativeAnimatedModule, 'Native animated module is not available');
     API.queueOperation(() =>
-      NativeAnimatedModule.stopListeningToAnimatedNodeValue(tag),
+    NativeAnimatedModule?.stopListeningToAnimatedNodeValue &&   NativeAnimatedModule.stopListeningToAnimatedNodeValue(tag),
     );
   },
   connectAnimatedNodes: function(parentTag: number, childTag: number): void {
     invariant(NativeAnimatedModule, 'Native animated module is not available');
     API.queueOperation(() =>
-      NativeAnimatedModule.connectAnimatedNodes(parentTag, childTag),
+      NativeAnimatedModule?.connectAnimatedNodes &&     NativeAnimatedModule.connectAnimatedNodes(parentTag, childTag),
     );
   },
   disconnectAnimatedNodes: function(parentTag: number, childTag: number): void {
     invariant(NativeAnimatedModule, 'Native animated module is not available');
     API.queueOperation(() =>
-      NativeAnimatedModule.disconnectAnimatedNodes(parentTag, childTag),
+     NativeAnimatedModule?.disconnectAnimatedNodes &&       NativeAnimatedModule.disconnectAnimatedNodes(parentTag, childTag),
     );
   },
   startAnimatingNode: function(
@@ -122,7 +122,7 @@ const API = {
   ): void {
     invariant(NativeAnimatedModule, 'Native animated module is not available');
     API.queueOperation(() =>
-      NativeAnimatedModule.startAnimatingNode(
+     NativeAnimatedModule?.startAnimatingNode &&         NativeAnimatedModule.startAnimatingNode(
         animationId,
         nodeTag,
         config,
@@ -132,36 +132,36 @@ const API = {
   },
   stopAnimation: function(animationId: number) {
     invariant(NativeAnimatedModule, 'Native animated module is not available');
-    API.queueOperation(() => NativeAnimatedModule.stopAnimation(animationId));
+    API.queueOperation(() =>    NativeAnimatedModule?.stopAnimation &&    NativeAnimatedModule.stopAnimation(animationId));
   },
   setAnimatedNodeValue: function(nodeTag: number, value: number): void {
     invariant(NativeAnimatedModule, 'Native animated module is not available');
     API.queueOperation(() =>
-      NativeAnimatedModule.setAnimatedNodeValue(nodeTag, value),
+    NativeAnimatedModule?.setAnimatedNodeValue &&  NativeAnimatedModule.setAnimatedNodeValue(nodeTag, value),
     );
   },
   setAnimatedNodeOffset: function(nodeTag: number, offset: number): void {
     invariant(NativeAnimatedModule, 'Native animated module is not available');
     API.queueOperation(() =>
-      NativeAnimatedModule.setAnimatedNodeOffset(nodeTag, offset),
+      NativeAnimatedModule?.setAnimatedNodeOffset &&   NativeAnimatedModule.setAnimatedNodeOffset(nodeTag, offset),
     );
   },
   flattenAnimatedNodeOffset: function(nodeTag: number): void {
     invariant(NativeAnimatedModule, 'Native animated module is not available');
     API.queueOperation(() =>
-      NativeAnimatedModule.flattenAnimatedNodeOffset(nodeTag),
+     NativeAnimatedModule?.flattenAnimatedNodeOffset &&     NativeAnimatedModule.flattenAnimatedNodeOffset(nodeTag),
     );
   },
   extractAnimatedNodeOffset: function(nodeTag: number): void {
     invariant(NativeAnimatedModule, 'Native animated module is not available');
     API.queueOperation(() =>
-      NativeAnimatedModule.extractAnimatedNodeOffset(nodeTag),
+      NativeAnimatedModule?.extractAnimatedNodeOffset &&      NativeAnimatedModule.extractAnimatedNodeOffset(nodeTag),
     );
   },
   connectAnimatedNodeToView: function(nodeTag: number, viewTag: number): void {
     invariant(NativeAnimatedModule, 'Native animated module is not available');
     API.queueOperation(() =>
-      NativeAnimatedModule.connectAnimatedNodeToView(nodeTag, viewTag),
+       NativeAnimatedModule?.connectAnimatedNodeToView &&       NativeAnimatedModule.connectAnimatedNodeToView(nodeTag, viewTag),
     );
   },
   disconnectAnimatedNodeFromView: function(
@@ -170,7 +170,7 @@ const API = {
   ): void {
     invariant(NativeAnimatedModule, 'Native animated module is not available');
     API.queueOperation(() =>
-      NativeAnimatedModule.disconnectAnimatedNodeFromView(nodeTag, viewTag),
+     NativeAnimatedModule?.disconnectAnimatedNodeFromView &&        NativeAnimatedModule.disconnectAnimatedNodeFromView(nodeTag, viewTag),
     );
   },
   restoreDefaultValues: function(nodeTag: number): void {
@@ -178,13 +178,13 @@ const API = {
     // Backwards compat with older native runtimes, can be removed later.
     if (NativeAnimatedModule.restoreDefaultValues != null) {
       API.queueOperation(() =>
-        NativeAnimatedModule.restoreDefaultValues(nodeTag),
+         NativeAnimatedModule?.restoreDefaultValues &&         NativeAnimatedModule.restoreDefaultValues(nodeTag),
       );
     }
   },
   dropAnimatedNode: function(tag: number): void {
     invariant(NativeAnimatedModule, 'Native animated module is not available');
-    API.queueOperation(() => NativeAnimatedModule.dropAnimatedNode(tag));
+    API.queueOperation(() =>NativeAnimatedModule?.dropAnimatedNode && NativeAnimatedModule.dropAnimatedNode(tag));
   },
   addAnimatedEventToView: function(
     viewTag: number,
@@ -193,7 +193,7 @@ const API = {
   ) {
     invariant(NativeAnimatedModule, 'Native animated module is not available');
     API.queueOperation(() =>
-      NativeAnimatedModule.addAnimatedEventToView(
+    NativeAnimatedModule?.addAnimatedEventToView &&   NativeAnimatedModule.addAnimatedEventToView(
         viewTag,
         eventName,
         eventMapping,
@@ -207,7 +207,7 @@ const API = {
   ) {
     invariant(NativeAnimatedModule, 'Native animated module is not available');
     API.queueOperation(() =>
-      NativeAnimatedModule.removeAnimatedEventFromView(
+     NativeAnimatedModule?.removeAnimatedEventFromView &&    NativeAnimatedModule.removeAnimatedEventFromView(
         viewTag,
         eventName,
         animatedNodeTag,
