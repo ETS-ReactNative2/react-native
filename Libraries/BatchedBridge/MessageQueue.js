@@ -76,6 +76,9 @@ class MessageQueue {
     this.callFunctionReturnFlushedQueue = this.callFunctionReturnFlushedQueue.bind(
       this,
     );
+        this.callFunctionReturnResultAndFlushedQueue = this.callFunctionReturnResultAndFlushedQueue.bind(
+      this,
+    );
     // $FlowFixMe[cannot-write]
     // $FlowFixMe[method-unbinding] added when improving typing for this parameters
     this.flushedQueue = this.flushedQueue.bind(this);
@@ -117,6 +120,11 @@ class MessageQueue {
     });
 
     return this.flushedQueue();
+  }
+
+  callFunctionReturnResultAndFlushedQueue(
+  ...args) {
+   return {}
   }
 
   invokeCallbackAndReturnFlushedQueue(
